@@ -4,25 +4,46 @@ import Question from './Question'
 
 class PollsList extends Component {
   state = {
-    answersId: []
+    answersId: [],
+    unansweredId: []
   }
 
   componentWillMount() {
     this.answeredQuestions()
+    this.questionsCreated()
   }
 
-  answeredQuestions = () => {
-    let answersIdArray = []
+  // questionsCreated = () => {
+  //   let createdIdArray = []
+
+  //   for (let index = 0; index < this.props.questionsIds.length; index++) {
+  //     let id = this.props.questionsIds[index]
+  //     // createdQuestions: Object.keys(us)
+  //     // debugger
+  //     // this.props.user.questions[id] === ("optionOne") 
+  //     // ? answersIdArray.push(id)
+  //     // : (this.props.user.answers[id] === ("optionTwo") ? answersIdArray.push(id) 
+  //     // : unansweredIdArray.push(id))
+  //   }
+  // }
+
+  questionsType = () => { // this function defines if the question has been answered or not
+    let answersIdArray = Object.keys(this.props.user.answers)
     let unansweredIdArray = []
     for (let index = 0; index < this.props.questionsIds.length; index++) {
       let id = this.props.questionsIds[index]
-      this.props.user.answers[id] === ("optionOne") 
-      ? answersIdArray.push(id)
-      : (this.props.user.answers[id] === ("optionTwo") ? answersIdArray.push(id) 
-      : unansweredIdArray.push(id))
+      if (this.props.user.answers[id] !== ("optionOne")){
+        if (this.props.user.answers[id] !== ("optionTwo")){
+          unansweredIdArray.push(id)
+        }
+      }
+      // this.props.user.answers[id] === ("optionOne") ? none : (this.props.user.answers[id] === ("optionTwo") ? none : unansweredIdArray.push(id))
     }
     this.setState({ 
       answersId: this.state.answersId.concat([answersIdArray])
+    })
+    this.setState({ 
+      unansweredId: this.state.unansweredId.concat([unansweredIdArray])
     })
   }
 
