@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import Question from './Question'
 
 class PollsList extends Component {
   render() {
-    console.log('this are the props >>>>polls<<<<<: ', this.props)
+
+    const { user, questionsIds } = this.props
+
+    console.log(questionsIds)
+
+    const answeredQuestions = () => {
+      let answersId = []
+      for (let index = 0; index < questionsIds.length; index++) {
+        let id = `${questionsIds[index]}`
+        user.answers.id && answersId.push(id)
+
+      }
+      console.log(answersId)
+    }
+
+    answeredQuestions()
+
+    console.log(user)
     return (
       <div className="App">
-        PollsList
+        {/* <Question id={id} /> */}
       </div>
     );
   }
 }
 
-function mapStateToProps ({ questions }) {
+function mapStateToProps({ questions, users, authedUser }) {
   return {
+    user: users[authedUser],
     questionsIds: Object.keys(questions)
-      .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+      .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
   }
 }
 
