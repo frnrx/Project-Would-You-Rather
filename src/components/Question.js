@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
 class Question extends Component {
+
   render() {
     const { question } = this.props
     const { optionOne, optionTwo } = question
+
+    // console.log(question);
+    
+
     return (
       <div>
         <h4>Would you rather: </h4>
@@ -14,7 +19,7 @@ class Question extends Component {
   }
 }
 
-function mapStateToProps({ questions }, { id }) {
+function mapStateToProps({ questions, users, authedUser }, { id }) {  
   const question = questions[id]  
 
   return {
