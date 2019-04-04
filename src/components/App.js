@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PollsList from './PollsList'
+import Dashboard from './Dashboard'
 import { handleInitialData } from '../actions/shared'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
@@ -16,7 +16,7 @@ class App extends Component {
         {this.props.loading === true
           ? null
           : <div>
-            <PollsList />
+            <Dashboard />
           </div>}
       </div>
     );

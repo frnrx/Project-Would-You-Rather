@@ -12,15 +12,18 @@ class Question extends Component {
 
     return (
       <div>
-        <h4>Would you rather: </h4>
         <p>{optionOne.text} or {optionTwo.text}</p>
       </div>
     );
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }, { id }) {  
+function mapStateToProps({ questions, users, authedUser }, { id }) { 
+	console.log(id);	
+	 
   const question = questions[id]  
+
+  console.log(questions);
 
   return {
     question: question
