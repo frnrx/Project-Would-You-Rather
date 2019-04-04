@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class Question extends Component {
@@ -11,8 +11,14 @@ class Question extends Component {
     
 
     return (
-      <div>
-        <p>{optionOne.text} or {optionTwo.text}</p>
+      <div className='question'>
+        <button className='question-card'>
+          <span className='question-text'>{optionOne.text}</span>
+        </button>
+        <h5>OR</h5>
+        <button className='question-card'>
+          <span className='question-text'>{optionTwo.text}</span>
+        </button>        
       </div>
     );
   }

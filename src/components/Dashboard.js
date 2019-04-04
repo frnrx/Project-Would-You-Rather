@@ -60,7 +60,7 @@ class PollsList extends Component {
 						<Button variant="outline-primary" value="allQuestions" onClick={(e) => this.changeNav(e)}>AllQuestions</Button>
 					</Nav>
 				</div>
-				<div className="polls-list">
+				<div>
 					<link
 						rel="stylesheet"
 						href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -70,25 +70,27 @@ class PollsList extends Component {
 					<div className='list-option'>
 						{nav === "unanswered" && (
 							<div>
-								<h3>UNANSWERED</h3>
+								<h3 classname='title'>UNANSWERED</h3>
 								<QuestionsList idsList={unansweredId} />
 							</div>
 						)}
 						{nav === "answered" && (
 							<div>
-								<h3>ANSWERED</h3>
+								<h3 classname='title'>ANSWERED</h3>
 								<QuestionsList idsList={answeredId} />
 							</div>
 						)}
 						{nav === "created" && (
 							<div>
-								<h3>CREATED BY YOU</h3>
-								<QuestionsList idsList={createdId} />
+								<h3 classname='title'>CREATED BY YOU</h3>
+								<div className='questions-list'>
+									<QuestionsList idsList={createdId} />
+								</div>
 							</div>
 						)}
 						{nav === "allQuestions" && (
 							<div>
-								<h3>ALL QUESTIONS</h3>
+								<h3 classname='title'>ALL QUESTIONS</h3>
 								<QuestionsList idsList={questionsIds} />
 							</div>
 						)}
