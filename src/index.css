@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+.dashboard {
+	height: 100vh;
+	display: flex;
+	flex-direction: row;
+	background-color: #161319;
+	color: white;
+}
+
 .nav-bar {
 	display: flex;
 	flex-direction: column;
@@ -31,7 +39,6 @@ code {
 
 .list-option {
 	display: flex;
-	justify-items: center;
 	align-items: top;
 	padding: 2em;
 	width: 83vw;
@@ -42,13 +49,7 @@ code {
 
 .title {
 	margin: 0.3em;
-	justify-items: center;
-}
-
-.dashboard {
-	height: 100vh;
-	display: flex;
-	flex-direction: row;
+	font-size: 42px;
 }
 
 .questions-list {
@@ -59,24 +60,28 @@ code {
 	display: flex;
 	flex-direction: row;
 	padding: 0.4em;
-	font-size: 14px;
 	align-items: center;
 }
 
 .question-card {
-	display: flex;
-	justify-items: center;
-	align-items: center;
-	width: 7rem;
-	height: 5rem;
+	font-size: 20px;
+	color: white;
+	width: 12rem;
+	height: 10rem;
 	padding: 0.4em;
 	margin: 0.4em;
 	border: 1px solid white;
 	border-radius: 8%;
-	background-color: #99e6e6;
-}
-
-.question-text {
+	background: #161319;
 	text-align: center;
 	vertical-align: center;
+}
+
+.voted-card {
+	background: white;
+	color: #161319;
+}
+
+.alternator {
+	margin: 25px;
 }
