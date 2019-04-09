@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import NavQuestions from './NavQuestions';
 
 class Unaswered extends Component {
 
@@ -44,18 +45,21 @@ class Unaswered extends Component {
 		const { questions } = this.props
 
 		return (
-			<div className='question-list'>
-				{this.props.idsList.map((id) => (
-					<div className='question' key={questions[id].id}>
-						<button className='question-card' id={`${questions[id].id}-option-one`} onClick={(event) => this.handleVote(questions[id], event)}>
-							{questions[id].optionOne.text}
-						</button>
-						<h5 className='alternator'>OR</h5>
-						<button className='question-card' id={`${questions[id].id}-option-two`} onClick={(event) => this.handleVote(questions[id], event)}>
-							{questions[id].optionTwo.text}
-						</button>
-					</div>
-				))}
+			<div className='dashboard'>
+				<NavQuestions />
+				<div className='question-list'>
+					{this.props.idsList.map((id) => (
+						<div className='question' key={questions[id].id}>
+							<button className='question-card' id={`${questions[id].id}-option-one`} onClick={(event) => this.handleVote(questions[id], event)}>
+								{questions[id].optionOne.text}
+							</button>
+							<h5 className='alternator'>OR</h5>
+							<button className='question-card' id={`${questions[id].id}-option-two`} onClick={(event) => this.handleVote(questions[id], event)}>
+								{questions[id].optionTwo.text}
+							</button>
+						</div>
+					))}
+				</div>
 			</div>
 		);
 	}
@@ -63,7 +67,17 @@ class Unaswered extends Component {
 
 function mapStateToProps({ questions, users, authedUser }) {
 
-	return { questions: questions }
+	const { answers } = users[authedUser]
+	let idsList = Object.keys(answers)
+		.sort((a, b) => answers[b].timestamp - answers[a].timestamp)
+
+	console.log(idsList)
+	return {
+		questions: questions,
+		users: users,
+		authedUser: authedUser,
+		idsList: idsList
+	}
 }
 
 export default connect(mapStateToProps)(Unaswered);

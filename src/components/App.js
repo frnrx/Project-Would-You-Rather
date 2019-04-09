@@ -2,11 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
-import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
 import NewQuestion from './NewQuestion'
 import QuestionPage from './QuestionPage'
 import Leaderboard from './Leaderboard'
+import Answered from './Answered'
+import Unanswered from './Unanswered'
 import Nav from './Nav'
 
 class App extends Component {
@@ -23,10 +24,12 @@ class App extends Component {
               ? null
               : <div>
                 <Nav />
-                <Route path='/' exact component={Dashboard} />
+                <Route path='/' exact component={Unanswered} />
                 <Route path='/question/:id' component={QuestionPage} />
                 <Route path='/new' component={NewQuestion} />
                 <Route path='/leaderboard' component={Leaderboard} />
+                <Route path='/answered' component={Answered} />
+                <Route path='/unanswered' component={Unanswered} />
               </div>}
           </div>
         </Fragment>

@@ -49,9 +49,10 @@ code {
 }
 
 .questions-list {
+	width: 75vw;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
+	justify-items: center;
 	align-content: center;	
 }
 

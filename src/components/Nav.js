@@ -7,7 +7,6 @@ class Nav extends Component {
 
   render() {
     const { user } = this.props
-    console.log('olha o pasteeeel: ', this.props)
 
     return (
       <div className='nav'>
@@ -15,21 +14,21 @@ class Nav extends Component {
           <div className='nav-item'>
             <NavLink to='/' exact activeClassName='active'>
               Home
-          </NavLink>
+            </NavLink>
           </div>
           <div className='nav-item'>
             <NavLink to='/new' activeClassName='active'>
               New Question
-          </NavLink>
+            </NavLink>
           </div>
           <div className='nav-item'>
             <NavLink to='/leaderboard' activeClassName='active'>
               Leaderboard
-          </NavLink>
+            </NavLink>
           </div>
-        </nav>                
+        </nav>
         <div className='user'>
-          <img src={user.avatarURL} alt='' className='user-avatar'/>
+          <img src={user.avatarURL} alt='' className='user-avatar' />
           <p className='user-name'>{user.name}</p>
         </div>
       </div>
@@ -37,8 +36,8 @@ class Nav extends Component {
   }
 }
 
-function mapStateToProps({authedUser, users }) {
-  
+function mapStateToProps({ authedUser, users }) {
+
   return {
     user: users[authedUser]
   }

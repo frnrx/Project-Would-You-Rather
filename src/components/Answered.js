@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import NavQuestions from './NavQuestions';
 
 class Answered extends Component {
 
@@ -44,7 +45,7 @@ class Answered extends Component {
 		let number1 = this.props.questions[id].optionOne.votes.push()
 		let number2 = this.props.questions[id].optionTwo.votes.push()
 		let total = number1 + number2
-		let percentage		
+		let percentage
 
 		if (option === 'one') {
 			percentage = number1 / total * 100
@@ -61,24 +62,27 @@ class Answered extends Component {
 		const { questions } = this.props
 
 		return (
-			<div className='question-list'>
-				{this.props.idsList.map((id) => {
-					return (
-						<div className='question' key={questions[id].id}>
-							<button className='question-card' value='optionOne' id={`${questions[id].id}-option-one`}>
-								{questions[id].optionOne.text}
-								<p>{this.showNumberOfVotes(id, 'one')}</p>
-								<p>{this.showPercentageOfVotes(id, 'one')}</p>
-							</button>
-							<h5 className='alternator'>OR</h5>
-							<button className='question-card' value='optionTwo' id={`${questions[id].id}-option-two`}>
-								{questions[id].optionTwo.text}
-								<p>{this.showNumberOfVotes(id, 'two')}</p>
-								<p>{this.showPercentageOfVotes(id, 'two')}</p>
-							</button>
-						</div>
-					)
-				})}
+			<div className='dashboard'>
+				<NavQuestions />
+				<div className='question-list'>
+					{this.props.idsList.map((id) => {
+						return (
+							<div className='question' key={questions[id].id}>
+								<button className='question-card' value='optionOne' id={`${questions[id].id}-option-one`}>
+									{questions[id].optionOne.text}
+									<p>{this.showNumberOfVotes(id, 'one')}</p>
+									<p>{this.showPercentageOfVotes(id, 'one')}</p>
+								</button>
+								<h5 className='alternator'>OR</h5>
+								<button className='question-card' value='optionTwo' id={`${questions[id].id}-option-two`}>
+									{questions[id].optionTwo.text}
+									<p>{this.showNumberOfVotes(id, 'two')}</p>
+									<p>{this.showPercentageOfVotes(id, 'two')}</p>
+								</button>
+							</div>
+						)
+					})}
+				</div>
 			</div>
 		);
 	}
@@ -86,10 +90,16 @@ class Answered extends Component {
 
 function mapStateToProps({ questions, users, authedUser }) {
 
+	const { answers } = users[authedUser]
+	let idsList = Object.keys(answers)
+		.sort((a, b) => answers[b].timestamp - answers[a].timestamp)
+
+	console.log(idsList)
 	return {
 		questions: questions,
 		users: users,
-		authedUser: authedUser
+		authedUser: authedUser,
+		idsList: idsList
 	}
 }
 export default connect(mapStateToProps)(Answered);
