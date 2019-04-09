@@ -1,24 +1,36 @@
-import React, { Component } from 'react';
-import Dashboard from './Dashboard'
-import { handleInitialData } from '../actions/shared'
+import React, { Component, Fragment } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
+import Dashboard from './Dashboard'
 import LoadingBar from 'react-redux-loading'
+import NewQuestion from './NewQuestion'
+import QuestionPage from './QuestionPage'
+import Leaderboard from './Leaderboard'
+import Nav from './Nav'
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
   render() {
-    console.log('this are the props >>>>app<<<<<: ', this.props)
     return (
-      <div className="App">
-        <LoadingBar />
-        {this.props.loading === true
-          ? null
-          : <div>
-            <Dashboard />
-          </div>}
-      </div>
+      <Router>
+        <Fragment>
+          <LoadingBar />
+          <div className='container'>
+            {this.props.loading === true
+              ? null
+              : <div>
+                <Nav />
+                <Route path='/' exact component={Dashboard} />
+                <Route path='/question/:id' component={QuestionPage} />
+                <Route path='/new' component={NewQuestion} />
+                <Route path='/leaderboard' component={Leaderboard} />
+              </div>}
+          </div>
+        </Fragment>
+      </Router>
     );
   }
 }

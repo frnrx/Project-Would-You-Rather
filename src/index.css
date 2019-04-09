@@ -5,7 +5,8 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: #706c70;
 }
 
 code {
@@ -14,11 +15,28 @@ code {
 }
 
 .dashboard {
-	height: 100vh;
 	display: flex;
 	flex-direction: row;
-	background-color: #161319;
 	color: white;
+}
+
+.nav {
+	color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
+	align-items: center;
+}
+
+.nav-list {
+	display: flex;
+	flex-direction: row;
+}
+
+.nav-item {
+	margin: 0.5em;
 }
 
 .nav-bar {
@@ -72,16 +90,31 @@ code {
 	margin: 0.4em;
 	border: 1px solid white;
 	border-radius: 8%;
-	background: #161319;
+	background: #706c70;
 	text-align: center;
 	vertical-align: center;
 }
 
 .voted-card {
 	background: white;
-	color: #161319;
+	color: #706c70;
 }
 
 .alternator {
 	margin: 25px;
+}
+
+.user {
+	display: flex;
+	flex-direction: row;
+}
+.user-avatar {
+	width: 3em;
+	height: 3em;
+}
+
+.user-name {
+	font-size: 12px;
+	display: flex;
+	align-items: center;
 }

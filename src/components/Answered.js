@@ -58,7 +58,7 @@ class Answered extends Component {
 
 	render() {
 
-		const { questions, users, authedUser } = this.props
+		const { questions } = this.props
 
 		return (
 			<div className='question-list'>
