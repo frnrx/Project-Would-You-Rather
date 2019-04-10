@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NavQuestions from './NavQuestions';
+import NavQuestions from './NavQuestions'
+import { Link } from 'react-router-dom'
 
 class Unaswered extends Component {
 
@@ -47,16 +48,12 @@ class Unaswered extends Component {
 		return (
 			<div className='dashboard'>
 				<NavQuestions />
-				<div className='question-list'>
+				<div className='questions-list'>
 					{this.props.idsList.map((id) => (
-						<div className='question' key={questions[id].id}>
-							<button className='question-card' id={`${questions[id].id}-option-one`} onClick={(event) => this.handleVote(questions[id], event)}>
-								{questions[id].optionOne.text}
-							</button>
-							<h5 className='alternator'>OR</h5>
-							<button className='question-card' id={`${questions[id].id}-option-two`} onClick={(event) => this.handleVote(questions[id], event)}>
-								{questions[id].optionTwo.text}
-							</button>
+						<div className='question-link'>
+							<Link to={`/question/${id}`}>
+								<h5 style={{margin: '0'}}>{questions[id].optionOne.text} OR {questions[id].optionOne.text}</h5>
+							</Link>
 						</div>
 					))}
 				</div>

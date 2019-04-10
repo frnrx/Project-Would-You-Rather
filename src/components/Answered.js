@@ -64,7 +64,7 @@ class Answered extends Component {
 		return (
 			<div className='dashboard'>
 				<NavQuestions />
-				<div className='question-list'>
+				<div className='questions-list'>
 					{this.props.idsList.map((id) => {
 						return (
 							<div className='question' key={questions[id].id}>
