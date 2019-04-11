@@ -58,6 +58,7 @@ code {
 	align-items: center;	
 	max-height: 90vh;
 	margin-top: 0.3em;
+	align-content: center;
 }
 
 .question-link{

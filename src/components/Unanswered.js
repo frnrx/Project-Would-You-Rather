@@ -52,7 +52,7 @@ class Unaswered extends Component {
 					{this.props.idsList.map((id) => (
 						<div className='question-link'>
 							<Link to={`/question/${id}`}>
-								<h5 style={{margin: '0'}}>{questions[id].optionOne.text} OR {questions[id].optionOne.text}</h5>
+								<h5 style={{margin: '0'}}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
 							</Link>
 						</div>
 					))}
@@ -65,10 +65,14 @@ class Unaswered extends Component {
 function mapStateToProps({ questions, users, authedUser }) {
 
 	const { answers } = users[authedUser]
-	let idsList = Object.keys(answers)
-		.sort((a, b) => answers[b].timestamp - answers[a].timestamp)
+	let questionsId = Object.keys(questions)
+	let answersId = Object.keys(answers)
+	let idsList = []
+	questionsId.map((question) => {
+		answersId.find((answer) => answer === question) === undefined && idsList.push(question)
+	})
+	// .sort((a, b) => answers[b].timestamp - answers[a].timestamp)
 
-	console.log(idsList)
 	return {
 		questions: questions,
 		users: users,
