@@ -69,7 +69,7 @@ class Answered extends Component {
 					{this.props.idsList.map((id) => {
 						return (
 							<div className='question-link'>
-								<Link to={`/question/${id}`}>
+								<Link to={`/question/${id}`} type='answered'>
 									<h5 style={{ margin: '0' }}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
 								</Link>
 								{/* <button className='question-card' value='optionOne' id={`${questions[id].id}-option-one`}>

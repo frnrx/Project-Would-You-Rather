@@ -5,42 +5,6 @@ import { Link } from 'react-router-dom'
 
 class Unaswered extends Component {
 
-	state = {
-		voted: ''
-	}
-
-	handleVote = (question, event) => {
-
-
-		if (this.state.voted !== '') {
-
-			if (event.target.classList.length === 2) {
-				event.target.classList.remove("voted-card")
-				this.setState({
-					voted: ''
-				})
-			}
-			else {
-				event.target.classList.add("voted-card")
-				if (event.target.id === `${question.id}-option-one`) {
-					document.getElementById(`${question.id}-option-two`).classList.remove("voted-card")
-				}
-				else {
-					document.getElementById(`${question.id}-option-one`).classList.remove("voted-card")
-				}
-				this.setState({
-					voted: event.target.id
-				})
-			}
-		}
-		else {
-			event.target.classList.add("voted-card")
-			this.setState({
-				voted: event.target.id
-			})
-		}
-	}
-
 	render() {
 
 		const { questions } = this.props
@@ -65,13 +29,12 @@ class Unaswered extends Component {
 function mapStateToProps({ questions, users, authedUser }) {
 
 	const { answers } = users[authedUser]
-	let questionsId = Object.keys(questions)
+	let questionsId = Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
 	let answersId = Object.keys(answers)
 	let idsList = []
 	questionsId.map((question) => {
 		answersId.find((answer) => answer === question) === undefined && idsList.push(question)
 	})
-	// .sort((a, b) => answers[b].timestamp - answers[a].timestamp)
 
 	return {
 		questions: questions,
