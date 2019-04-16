@@ -13,13 +13,17 @@ class Unaswered extends Component {
 			<div className='dashboard'>
 				<NavQuestions />
 				<div className='questions-list'>
-					{this.props.idsList.map((id) => (
-						<div className='question-link'>
-							<Link to={`/question/${id}`}>
-								<h5 style={{margin: '0'}}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
-							</Link>
-						</div>
-					))}
+					{this.props.idsList.map((id) => {
+						if (questions[id]) {
+							return (
+								<div className='question-link'>
+									<Link to={`/question/${id}`}>
+										<h5 style={{ margin: '0' }}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
+									</Link>
+								</div>
+							)
+						}
+					})}
 				</div>
 			</div>
 		);

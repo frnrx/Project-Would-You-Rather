@@ -11,25 +11,35 @@ export function receiveQuestions(questions) {
 	}
 }
 
-function saveAnswer(tweet) {
+function saveAnswer({ authedUser, qid, answer }) {
 	return {
-	  type: SAVE_ANSWER,
-	  tweet,
+		type: SAVE_ANSWER,
+		authedUser,
+		qid,
+		answer
 	}
-  }
+}
 
-export function handleSaveAnswer(qi, vote) {
-	return (dispatch, getState) => {
-	  const { authedUser } = getState()
-  
-	  dispatch(showLoading())
-  
-	  return saveAnswer({
-		author: authedUser,
-		qi,
-		vote
-	  })
-		.then((answer) => dispatch(saveQuestionAnswer(answer)))
-		.then(() => dispatch(hideLoading()))
+export function handleSaveAnswer(info) {
+	return (dispatch) => {
+
+		dispatch(showLoading())
+
+		return saveQuestionAnswer(info)
+			.then(() => dispatch(saveAnswer(info)))
+			.then(() => dispatch(hideLoading()))
 	}
-  }
+}
+
+// export function handleSaveAnswer(info) {
+// 	return (dispatch) => {
+// 		dispatch(saveAnswer(info));
+
+// 		return saveQuestionAnswer(info)
+// 			.catch((e) => {
+// 				console.warn('Error in handleSaveAnswer: ', e);
+// 				dispatch(toggleTweet(info));
+// 				alert('There was an error liking the tweet. Try again.');
+// 			});
+// 	};
+// }
