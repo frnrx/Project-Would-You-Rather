@@ -26,7 +26,7 @@ class App extends Component {
                 <Nav />
                 <Route path='/' exact component={Unanswered} />
                 <Route path='/question/:id' component={QuestionPage} />
-                <Route path='/new' component={NewQuestion} />
+                <Route path='/add' component={NewQuestion} />
                 <Route path='/leaderboard' component={Leaderboard} />
                 <Route path='/answered' component={Answered} />
                 <Route path='/unanswered' component={Unanswered} />

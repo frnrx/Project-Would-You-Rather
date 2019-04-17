@@ -9,10 +9,21 @@ class QuestionPage extends Component {
 		submitBtn: 'disable-btn'
 	}
 
-	handleVote = (question, event) => {
+	componentDidMount() {
+		this.props.isAnswered && (
+			this.showAnswer(this.props.answer)
+		)
+	}
 
-		if (this.state.voted !== '') {
+	showAnswer = (answer) => {
+		const { qid, questions } = this.props
+		document.getElementById(`${questions[qid].qid}${answer}`).classList.add("voted-card")
+	}
 
+	handleVote = (event) => {
+		const { qid, questions } = this.props
+
+		if (!this.props.isAnswered) {
 			if (event.target.classList.length === 2) {
 				event.target.classList.remove("voted-card")
 				this.setState({
@@ -23,11 +34,11 @@ class QuestionPage extends Component {
 			}
 			else {
 				event.target.classList.add("voted-card")
-				if (event.target.id === `${question.qid}-option-one`) {
-					document.getElementById(`${question.qid}-option-two`).classList.remove("voted-card")
+				if (event.target.id === `${questions[qid].qid}optionOne`) {
+					document.getElementById(`${questions[qid].qid}optionTwo`).classList.remove("voted-card")
 				}
 				else {
-					document.getElementById(`${question.qid}-option-one`).classList.remove("voted-card")
+					document.getElementById(`${questions[qid].qid}optionOne`).classList.remove("voted-card")
 				}
 				this.setState({
 					answer: event.target.value,
@@ -35,13 +46,39 @@ class QuestionPage extends Component {
 				})
 			}
 		}
-		else {
-			event.target.classList.add("voted-card")
-			this.setState({
-				answer: event.target.value,
-				submitBtn: ''
-			})
+	}
+
+	showNumberOfVotes = (qid, option) => {
+		let number
+		if (option === 'one') {
+			number = this.props.questions[qid].optionOne.votes.push()
 		}
+		else {
+			number = this.props.questions[qid].optionTwo.votes.push()
+		}
+
+		if (number > 1 || number === 0) {
+			return (`${number} votes`)
+		}
+		else {
+			return ('1 vote')
+		}
+	}
+
+	showPercentageOfVotes = (qid, option) => {
+		let number1 = this.props.questions[qid].optionOne.votes.push()
+		let number2 = this.props.questions[qid].optionTwo.votes.push()
+		let total = number1 + number2
+		let percentage
+
+		if (option === 'one') {
+			percentage = number1 / total * 100
+		}
+		else {
+			percentage = number2 / total * 100
+		}
+
+		return (`${percentage.toFixed(0)}%`)
 	}
 
 	handleSubmit = (e) => {
@@ -57,24 +94,37 @@ class QuestionPage extends Component {
 	}
 
 	render() {
-		const { qid, questions, users } = this.props
+		const { qid, questions, users, isAnswered } = this.props
 		const { submitBtn } = this.state
-
-		console.log(this.state);
 
 		return (
 			<div className='question-page'>
-				<div className='question'>
-					<button className='question-card' id={`${questions[qid].qid}-option-one`} value='optionOne' onClick={(event) => this.handleVote(questions[qid], event)}>
-						{questions[qid].optionOne.text}
-					</button>
-					<h5 className='alternator'>OR</h5>
-					<button className='question-card' id={`${questions[qid].qid}-option-two`} value='optionTwo' onClick={(event) => this.handleVote(questions[qid], event)}>
-						{questions[qid].optionTwo.text}
-					</button>
-					<button style={{ borderRadius: '5%', width: '9%', height: '10%' }} className={submitBtn} onClick={(event) => this.handleSubmit(questions[qid], event)}>SUBMIT</button>
-				</div>
-				<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" class="user-avatar"></img> {users[questions[qid].author].name}</p>
+				{questions[qid]
+					? (<div>
+						<h1>Would You Rather</h1>
+						<div className='question'>
+							<button className='question-card' id={`${questions[qid].qid}optionOne`} value='optionOne' onClick={(event) => this.handleVote(event)}>
+								{questions[qid].optionOne.text}
+							</button>
+							<h5 className='alternator'>OR</h5>
+							<button className='question-card' id={`${questions[qid].qid}optionTwo`} value='optionTwo' onClick={(event) => this.handleVote(event)}>
+								{questions[qid].optionTwo.text}
+							</button>
+							<button style={{ borderRadius: '5%', width: '9%', height: '10%' }} className={submitBtn} onClick={(event) => this.handleSubmit(event)}>SUBMIT</button>
+						</div>
+						<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" class="user-avatar"></img> {users[questions[qid].author].name}</p>
+
+						{isAnswered &&
+							(<div>
+								<p>{this.showNumberOfVotes(qid, 'one')}</p>
+								<p>{this.showPercentageOfVotes(qid, 'one')}</p>
+							</div>)
+						}
+					</div>)
+					: (
+						<h1>404: This page does not exist.</h1>
+					)
+				}
 			</div>
 		)
 	}
@@ -83,11 +133,19 @@ class QuestionPage extends Component {
 function mapStateToProps({ authedUser, questions, users }, props) {
 	const { id } = props.match.params
 
+	let isAnswered = Object.keys(users[authedUser].answers).includes(id)
+
+	let answer = ''
+
+	isAnswered && (answer = users[authedUser].answers[id])
+
 	return {
 		questions: questions,
 		qid: id,
 		users: users,
-		authedUser: authedUser
+		authedUser: authedUser,
+		isAnswered: isAnswered,
+		answer: answer
 	}
 }
 
