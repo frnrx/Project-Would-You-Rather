@@ -168,3 +168,18 @@ a{
 	font-size: 12px;
 	text-align: center;
 }
+
+.new-question{
+	color: white;
+	padding: 3em;
+}
+
+.new-question-form{
+	display: flex;
+	flex-direction: column;
+	width: 20em;
+}
+
+.new-question-form-item{
+	min-height: 4em;
+}
