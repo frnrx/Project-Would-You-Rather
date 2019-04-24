@@ -11,7 +11,7 @@ class Leaderboard extends Component {
 				<div className='leaderboard'>
 					<h1 style={{letterSpacing: '5px'}}>Leaderboard</h1>
 					{usersArranged.map((user) => (
-						<div className='user-leaderboard' key='user.id'>
+						<div className='user-leaderboard' key={user.id}>
 							<img src={user.avatarURL} alt='' className='user-avatar' />
 							<p>{`${user.name} has answered ${user.answers} polls and ansked ${user.questions}`}</p>
 						</div>
@@ -25,11 +25,10 @@ class Leaderboard extends Component {
 function mapStateToProps({ users }) {
 
 	let usersList = Object.keys(users)
-
 	let usersArranged = []
 	let user = {}
 
-	usersList.map((id) => {
+	usersList.forEach((id) => {
 		let numAnswers = Object.keys(users[id].answers).length
 		let numQuestions = Object.keys(users[id].questions).length
 		let numTotal = numAnswers + numQuestions
@@ -40,7 +39,7 @@ function mapStateToProps({ users }) {
 			total: numTotal
 		}
 		usersArranged.push(user)
-	})
+	})	
 
 	usersArranged = usersArranged.sort((a, b) => b.total - a.total)
 

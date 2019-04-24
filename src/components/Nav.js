@@ -35,11 +35,13 @@ class Nav extends Component {
 							</NavLink>
 							</div>
 						</nav>
-						<div className='user'>
-							<img src={user.avatarURL} alt='' className='user-avatar' />
-							<p className='user-name'>{user.name}</p>
+						<div className='singin'>
+							<div className='user'>
+								<img src={user.avatarURL} alt='' className='user-avatar' />
+								<p className='user-name'>{user.name}</p>
+							</div>
+							<button className='login-form-item' style={{ width: '6em', fontSize: '10px' }} onClick={(e) => this.handleLogout(e)}>LOGOUT</button>
 						</div>
-						<button onClick={(e) => this.handleLogout(e)}>LOGOUT</button>
 					</div>
 				}
 			</div>

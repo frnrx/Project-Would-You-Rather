@@ -100,8 +100,11 @@ class QuestionPage extends Component {
 		return (
 			<div className='question-page'>
 				{questions[qid]
-					? (<div>
-						<h1>Would You Rather</h1>
+					? (<div style={{display: 'flex', flexDirection: 'column'}}>
+						<div style={{display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-around'}}>
+							<h1 style={{margin: '0'}}>Would You Rather</h1>
+							<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" className="user-avatar"></img> {users[questions[qid].author].name}</p>
+						</div>
 						<div className='question'>
 							<button className='question-card' id={`${questions[qid].qid}optionOne`} value='optionOne' onClick={(event) => this.handleVote(event)}>
 								{questions[qid].optionOne.text}
@@ -110,21 +113,23 @@ class QuestionPage extends Component {
 							<button className='question-card' id={`${questions[qid].qid}optionTwo`} value='optionTwo' onClick={(event) => this.handleVote(event)}>
 								{questions[qid].optionTwo.text}
 							</button>
-							<button style={{ borderRadius: '5%', width: '9%', height: '10%' }} className={submitBtn} onClick={(event) => this.handleSubmit(event)}>SUBMIT</button>
 						</div>
-						<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" className="user-avatar"></img> {users[questions[qid].author].name}</p>
-
+							<button className={`login-form-item ${submitBtn}`} style={{alignSelf: 'center'}} onClick={(event) => this.handleSubmit(event)}>SUBMIT</button>
 						{isAnswered &&
-							(<div>
-								<p>{this.showNumberOfVotes(qid, 'one')}</p>
-								<p>{this.showPercentageOfVotes(qid, 'one')}</p>
-								<p>{this.showNumberOfVotes(qid, 'two')}</p>
-								<p>{this.showPercentageOfVotes(qid, 'two')}</p>
+							(<div className='results'>
+								<div>
+									<p>{this.showNumberOfVotes(qid, 'one')}</p>
+									<p>{this.showPercentageOfVotes(qid, 'one')}</p>
+								</div>
+								<div>
+									<p>{this.showNumberOfVotes(qid, 'two')}</p>
+									<p>{this.showPercentageOfVotes(qid, 'two')}</p>
+								</div>
 							</div>)
 						}
 					</div>)
 					: (
-						<h1>404: This page does not exist.</h1>
+						null
 					)
 				}
 			</div>
@@ -136,7 +141,6 @@ function mapStateToProps({ authedUser, questions, users }, props) {
 	const { id } = props.match.params
 
 	let isAnswered = Object.keys(users[authedUser].answers).includes(id)
-
 	let answer = ''
 
 	isAnswered && (answer = users[authedUser].answers[id])
