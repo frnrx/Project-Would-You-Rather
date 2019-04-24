@@ -9,10 +9,10 @@ export default function questions(state = {}, action) {
 			}
 
 		case NEW_QUESTION:
-		debugger
 			return {
 				...state,
-				...action.question
+				...state[action.question.id],
+				[action.question.id]: action.question
 			}
 
 		case SAVE_ANSWER:

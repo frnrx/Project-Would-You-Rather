@@ -68,7 +68,7 @@ class Answered extends Component {
 				<div className='questions-list'>
 					{this.props.idsList.map((id) => {
 						return (
-							<div className='question-link'>
+							<div className='question-link' key={id}>
 								<Link to={`/question/${id}`} type='answered'>
 									<h5 style={{ margin: '0' }}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
 								</Link>

@@ -112,12 +112,14 @@ class QuestionPage extends Component {
 							</button>
 							<button style={{ borderRadius: '5%', width: '9%', height: '10%' }} className={submitBtn} onClick={(event) => this.handleSubmit(event)}>SUBMIT</button>
 						</div>
-						<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" class="user-avatar"></img> {users[questions[qid].author].name}</p>
+						<p>Created By: <img src={`https://robohash.org/${questions[qid].author}`} alt="" className="user-avatar"></img> {users[questions[qid].author].name}</p>
 
 						{isAnswered &&
 							(<div>
 								<p>{this.showNumberOfVotes(qid, 'one')}</p>
 								<p>{this.showPercentageOfVotes(qid, 'one')}</p>
+								<p>{this.showNumberOfVotes(qid, 'two')}</p>
+								<p>{this.showPercentageOfVotes(qid, 'two')}</p>
 							</div>)
 						}
 					</div>)

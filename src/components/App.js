@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
@@ -10,6 +10,8 @@ import Answered from './Answered'
 import Unanswered from './Unanswered'
 import Component404 from './Component404'
 import Nav from './Nav'
+import Login from './Login'
+import { debug } from 'util';
 
 class App extends Component {
 	componentDidMount() {
@@ -19,21 +21,27 @@ class App extends Component {
 		return (
 			<Router>
 				<Fragment>
-					<LoadingBar />
-					<div className='container'>
-						{this.props.loading === true
-							? null
+					{
+						this.props.authedUser === null
+							? <Login />
 							: <div>
-								<Nav />
-								<Route path='/' exact component={Unanswered} />
-								<Route path='/question/:id' component={QuestionPage} />
-								<Route path='/add' component={NewQuestion} />
-								<Route path='/leaderboard' component={Leaderboard} />
-								<Route path='/answered' component={Answered} />
-								<Route path='/unanswered' component={Unanswered} />
-								{/* <Route path='*' exact={true} component={Component404} /> */}
-							</div>}
-					</div>
+								<LoadingBar />
+								<div className='container'>
+									{this.props.loading === true
+										? null
+										: <div>
+											<Nav />
+											<Route path='/' exact component={Unanswered} />
+											<Route path='/question/:id' component={QuestionPage} />
+											<Route path='/add' component={NewQuestion} />
+											<Route path='/leaderboard' component={Leaderboard} />
+											<Route path='/answered' component={Answered} />
+											<Route path='/unanswered' component={Unanswered} />
+											{/* <Route path='*' exact={true} component={Component404} /> */}
+										</div>}
+								</div>
+							</div>
+				}
 				</Fragment>
 			</Router>
 		);
@@ -42,6 +50,7 @@ class App extends Component {
 
 function mapStateToProps({ authedUser }) {
 	return {
+		authedUser: authedUser,
 		loading: authedUser === null
 	}
 }

@@ -33,7 +33,6 @@ export function handleSaveAnswer(info) {
 }
 
 function newQuestion(question) {
-	debugger
 	return {
 		type: NEW_QUESTION,
 		question
@@ -41,7 +40,7 @@ function newQuestion(question) {
 }
 
 export function handleNewQuestion(question) {
-	const { optionOneText, optionTwoText, authedUser } = question
+	const { optionOneText, optionTwoText, author } = question
 	return (dispatch) => {
 
 		dispatch(showLoading())
@@ -49,7 +48,7 @@ export function handleNewQuestion(question) {
 		return saveQuestion({
 			optionOneText: optionOneText,
 			optionTwoText: optionTwoText,
-			author: authedUser
+			author: author
 		})
 			.then((question) => dispatch(newQuestion(question)))
 			.then(() => dispatch(hideLoading()))

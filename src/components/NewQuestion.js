@@ -6,7 +6,7 @@ class NewQuestion extends Component {
 
 	state = {
 		optionOne: '',
-		optionTwo: ''
+		optionTwo: '',
 	}
 
 	generateUID() {
@@ -23,7 +23,9 @@ class NewQuestion extends Component {
 			}))
 	}
 
-	handleSubmit = () => {
+	handleSubmit = (e) => {
+		e.preventDefault()
+
 		const { optionOne, optionTwo } = this.state
 		const { dispatch, authedUser } = this.props
 
@@ -33,12 +35,7 @@ class NewQuestion extends Component {
 			author: authedUser,
 		}
 
-		this.setState(() => ({
-			optionOne: '',
-			optionTwo: ''
-		}))
-
-		dispatch(handleNewQuestion(question))
+		dispatch(handleNewQuestion(question)).then(() => this.props.history.push('/'))
 	}
 
 	render() {
@@ -46,11 +43,11 @@ class NewQuestion extends Component {
 
 		return (
 			<div className='new-question'>
-				<h1 style={{ letterSpacing: '5px' }}>Would You Rather</h1>
+				<h1 style={{ letterSpacing: '5px' }}>WOULD YOU RATHER</h1>
 				<form className='new-question-form'>
 					<textarea className='new-question-form-item' id='optionOne' onChange={(e) => this.handleChange(e)} placeholder='OPTION ONE'></textarea>
 					<textarea className='new-question-form-item' id='optionTwo' onChange={(e) => this.handleChange(e)} placeholder='OPTION TWO'></textarea>
-					<button className='new-question-form-item' onClick={() => this.handleSubmit()}>SUBMIT</button>
+					<button className='new-question-form-item' onClick={(e) => this.handleSubmit(e)}>SUBMIT</button>
 				</form>
 			</div>
 		)
