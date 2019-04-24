@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
@@ -11,7 +11,6 @@ import Unanswered from './Unanswered'
 import Component404 from './Component404'
 import Nav from './Nav'
 import Login from './Login'
-import { debug } from 'util';
 
 class App extends Component {
 	componentDidMount() {
@@ -31,17 +30,19 @@ class App extends Component {
 										? null
 										: <div>
 											<Nav />
-											<Route path='/' exact component={Unanswered} />
-											<Route path='/question/:id' component={QuestionPage} />
-											<Route path='/add' component={NewQuestion} />
-											<Route path='/leaderboard' component={Leaderboard} />
-											<Route path='/answered' component={Answered} />
-											<Route path='/unanswered' component={Unanswered} />
-											{/* <Route path='*' exact={true} component={Component404} /> */}
+											<Switch>
+												<Route path='/' exact component={Unanswered} />
+												<Route path='/question/:id' component={QuestionPage} />
+												<Route path='/add' component={NewQuestion} />
+												<Route path='/leaderboard' component={Leaderboard} />
+												<Route path='/answered' component={Answered} />
+												<Route path='/unanswered' component={Unanswered} />
+												<Route component={Component404} />
+											</Switch>
 										</div>}
 								</div>
 							</div>
-				}
+					}
 				</Fragment>
 			</Router>
 		);
