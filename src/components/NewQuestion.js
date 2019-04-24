@@ -29,13 +29,19 @@ class NewQuestion extends Component {
 		const { optionOne, optionTwo } = this.state
 		const { dispatch, authedUser } = this.props
 
-		let question = {
-			optionOneText: optionOne,
-			optionTwoText: optionTwo,
-			author: authedUser,
+		if(optionOne === '' || optionTwo === ''){
+			alert('Please write two options.')
+		
 		}
-
-		dispatch(handleNewQuestion(question)).then(() => this.props.history.push('/'))
+		else{
+			let question = {
+				optionOneText: optionOne,
+				optionTwoText: optionTwo,
+				author: authedUser,
+			}
+	
+			dispatch(handleNewQuestion(question)).then(() => this.props.history.push('/'))
+		}
 	}
 
 	render() {
@@ -47,7 +53,7 @@ class NewQuestion extends Component {
 				<form className='new-question-form'>
 					<textarea className='new-question-form-item' id='optionOne' onChange={(e) => this.handleChange(e)} placeholder='OPTION ONE'></textarea>
 					<textarea className='new-question-form-item' id='optionTwo' onChange={(e) => this.handleChange(e)} placeholder='OPTION TWO'></textarea>
-					<button className='new-question-form-item' onClick={(e) => this.handleSubmit(e)}>SUBMIT</button>
+					<button className='new-question-form-submit' onClick={(e) => this.handleSubmit(e)}>SUBMIT</button>
 				</form>
 			</div>
 		)
