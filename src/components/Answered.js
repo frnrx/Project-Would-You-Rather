@@ -16,7 +16,7 @@ class Answered extends Component {
 					{this.props.idsList.map((id) => {
 						return (
 							<div className='question-link' key={id}>
-								<Link to={`/question/${id}`} type='answered'>
+								<Link to={`/question/${id}`} type='answered' className='question-a'>
 									<h5 style={{ margin: '0' }}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
 								</Link>
 							</div>
@@ -32,7 +32,7 @@ function mapStateToProps({ questions, users, authedUser }) {
 
 	const { answers } = users[authedUser]
 	let idsList = Object.keys(answers)
-		.sort((a, b) => answers[b].timestamp - answers[a].timestamp)
+		.sort((a, b) => questions[b].timestamp - questions[a].timestamp)
 
 	console.log(idsList)
 	return {

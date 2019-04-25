@@ -17,7 +17,7 @@ class Unaswered extends Component {
 						if (questions[id]) {
 							return (
 								<div className='question-link' key={id}>
-									<Link to={`/question/${id}`}>
+									<Link to={`/question/${id}`} className='question-a'>
 										<h5 style={{ margin: '0' }}>{questions[id].optionOne.text} OR {questions[id].optionTwo.text}</h5>
 									</Link>
 								</div>
